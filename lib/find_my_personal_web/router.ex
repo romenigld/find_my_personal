@@ -13,6 +13,7 @@ defmodule FindMyPersonalWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
+
   # coveralls-ignore-stop
 
   scope "/", FindMyPersonalWeb do
@@ -43,5 +44,6 @@ defmodule FindMyPersonalWeb.Router do
       live_dashboard "/dashboard", metrics: FindMyPersonalWeb.Telemetry
     end
   end
+
   # coveralls-ignore-stop
 end
