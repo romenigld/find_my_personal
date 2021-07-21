@@ -10,6 +10,16 @@ addons:
 
 services:
  - postgresql
+ - docker
+env:
+  global:
+    - GCP_PROJECT_ID=find-my-personal-elxpro
+    - IMAGE=gcr.io/find-my-personal-elxpro/find_my_personal
+    - CLOUD_RUN_SERVICE=find-my-personal-elxpro
+    - CLOUD_RUN_REGION=europe-west6
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - SHA=$(git rev-parse HEAD)
+
 
 script:
   - mix format --check-formatted --dry-run
@@ -18,3 +28,5 @@ script:
   - mix coveralls.json
 after_success:
   - bash <(curl -s https:/codecov.io/bash)
+
+# openssl aes-256-cbc -K $encrypted_b0d61adac1e1_key -iv $encrypted_b0d61adac1e1_iv -in romenig-find-my-personal-elxpro-a62b47364d72.json.enc -out romenig-find-my-personal-elxpro-a62b47364d72.json -d
