@@ -25,6 +25,7 @@ before_install:
   - source "$HOME/google-cloud-sdk/path.bash.inc"
   - gcloud auth activate-service-account --key-file=romenig-find-my-personal-elxpro-a62b47364d72.json
   - gcloud auth configure-docker # habilita push para o gcr
+  - gcloud auth login
   - gcloud config set project "${GCP_PROJECT_ID}"
   - gcloud components install beta # until Cloud Run is generally available
 # install: true #no-op
