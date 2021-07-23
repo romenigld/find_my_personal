@@ -10,6 +10,24 @@ addons:
 
 services:
  - postgresql
+ - docker
+env:
+  global:
+    - GCP_PROJECT_ID=find-my-personal-elxpro
+    - IMAGE=gcr.io/find-my-personal-elxpro/find_my_personal
+    - CLOUD_RUN_SERVICE=find-my-personal-elxpro
+    - CLOUD_RUN_REGION=europe-west6
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - SHA=$(git rev-parse HEAD)
+before_install:
+  - openssl aes-256-cbc -K $encrypted_b0d61adac1e1_key -iv $encrypted_b0d61adac1e1_iv -in romenig-find-my-personal-elxpro-a62b47364d72.json.enc -out romenig-find-my-personal-elxpro-a62b47364d72.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null # Download SDK GOOGLE
+  - source "$HOME/google-cloud-sdk/path.bash.inc"
+  - gcloud auth activate-service-account --key-file=romenig-find-my-personal-elxpro-a62b47364d72.json
+  - gcloud auth configure-docker # habilita push para o gcr
+  - gcloud config set project "${GCP_PROJECT_ID}"
+  - gcloud components install beta # until Cloud Run is generally available
+# install: true #no-op
 
 script:
   - mix format --check-formatted --dry-run
@@ -18,3 +36,9 @@ script:
   - mix coveralls.json
 after_success:
   - bash <(curl -s https:/codecov.io/bash)
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash ./deploy.sh # git update-index --add --chmod=+x deploy.sh
+  on:
+    branch: master
