@@ -22,9 +22,11 @@ defmodule FindMyPersonalWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FindMyPersonalWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", FindMyPersonalWeb do
+    pipe_through :api
+
+    resources "/teachers", TeacherController, except: [:new, :edit]
+  end
 
   # Enables LiveDashboard only for development
   #
