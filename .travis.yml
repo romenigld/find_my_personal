@@ -28,7 +28,7 @@ script:
 after_success:
   - bash <(curl -s https:/codecov.io/bash)
 before_deploy:
-  - openssl aes-256-cbc -K $encrypted_b0d61adac1e1_key -iv $encrypted_b0d61adac1e1_iv -in google-keys.json.enc -out google-keys.json -d
+  - openssl aes-256-cbc -K $encrypted_0922bd087e7f_key -iv $encrypted_0922bd087e7f_iv -in google-keys.json.enc -out google-keys.json -d
   - curl https://sdk.cloud.google.com | bash > /dev/null #Download SDK GOOGLE
   - source "$HOME/google-cloud-sdk/path.bash.inc"
   - gcloud auth activate-service-account  --key-file=google-keys.json
