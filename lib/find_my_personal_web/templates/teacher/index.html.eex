@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Education Level</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <%= for teacher <- @teachers do %>
+      <tr>
+        <td>
+          <%= teacher.name %>
+        </td>
+        <td>
+          <%= teacher.education_level %>
+        </td>
+        <td>
+          Actions
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
