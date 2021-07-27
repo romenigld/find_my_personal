@@ -1,0 +1,44 @@
+sudo: required
+language: elixir
+elixir:
+  - 1.11
+opt_release:
+  - 23.0
+
+addons:
+  postgres: "9.4"
+
+services:
+ - postgresql
+ - docker
+env:
+  global:
+    - GCP_PROJECT_ID=find-my-personal-elxpro
+    - IMAGE=gcr.io/find-my-personal-elxpro/find_my_personal
+    - CLOUD_RUN_SERVICE=find-my-personal-elxpro
+    - CLOUD_RUN_REGION=europe-west6
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - SHA=$(git rev-parse HEAD)
+
+script:
+  - mix format --check-formatted --dry-run
+  - mix credo --strict
+  - mix sobelow --config
+  - mix coveralls.json
+after_success:
+  - bash <(curl -s https:/codecov.io/bash)
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_0922bd087e7f_key -iv $encrypted_0922bd087e7f_iv -in google-keys.json.enc -out google-keys.json -d
+  - curl https://sdk.cloud.google.com | bash > /dev/null #Download SDK GOOGLE
+  - source "$HOME/google-cloud-sdk/path.bash.inc"
+  - gcloud auth activate-service-account  --key-file=google-keys.json
+  - gcloud auth configure-docker # habilita push para o gcr
+  - gcloud config set project "${GCP_PROJECT_ID}"
+  - gcloud components install beta # until Cloud Run is generally available (GA)
+# install: true # no-op
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash ./deploy.sh # git update-index --add --chmod=+x deploy.sh
+  on:
+    branch: master
