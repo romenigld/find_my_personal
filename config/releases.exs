@@ -25,6 +25,5 @@ config :find_my_personal, FindMyPersonalWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base
-  
-config :find_my_personal, FindMyPersonalWeb.Endpoint, server: true
 
+config :find_my_personal, FindMyPersonalWeb.Endpoint, server: true

@@ -11,6 +11,5 @@ defmodule FindMyPersonal.Repo.Migrations.CreateTeachers do
 
       timestamps()
     end
-
   end
 end
