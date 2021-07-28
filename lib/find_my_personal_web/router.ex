@@ -20,6 +20,7 @@ defmodule FindMyPersonalWeb.Router do
     pipe_through :browser
 
     resources "/teachers", TeacherController
+    resources "/members", MemberController
 
     get "/", PageController, :index
   end
