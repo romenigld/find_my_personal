@@ -17,3 +17,7 @@ To start your Phoenix Server Container-Prod:
     * OPTIONAL: POOL_SIZE and PORT
   * run `docker build -t IMAGE_NAME:TAG``
   * run `docker run --env-file .env -p 8080:4000 IMAGE_NAME:TAG`
+
+  Acessar deployado no Cloud Run:
+  API: https://find-my-personal-elxpro-52wninh63q-oa.a.run.app/api/teachers
+  Browser: https://find-my-personal-elxpro-52wninh63q-oa.a.run.app/teachers
