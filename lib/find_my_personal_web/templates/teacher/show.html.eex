@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Education Level</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+      <tr>
+        <td>
+          <%= @teacher.name %>
+        </td>
+        <td>
+          <%= @teacher.education_level %>
+        </td>
+        <td>
+          Actions
+        </td>
+      </tr>
+  </tbody>
+</table>
+<span>
+  <%= link "Edit", to: Routes.teacher_path(@conn, :edit, @teacher) %>
+</span>
+<span>
+  <%= link "Back", to: Routes.teacher_path(@conn, :index) %>
+</span>
