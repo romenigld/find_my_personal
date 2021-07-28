@@ -2,7 +2,6 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
   use FindMyPersonalWeb.ConnCase
 
   alias FindMyPersonal.Teachers
-  alias FindMyPersonal.Teachers.Teacher
 
   @create_attrs %{
     avatar_url: "some avatar_url",
@@ -31,62 +30,54 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
     teacher
   end
 
-  setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  end
-
   describe "index" do
     test "lists all teachers", %{conn: conn} do
       conn = get(conn, Routes.teacher_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+      assert html_response(conn, 200) =~ "Name"
     end
   end
 
   describe "create teacher" do
-    test "renders teacher when data is valid", %{conn: conn} do
+    test "renders to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.teacher_path(conn, :create), teacher: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+
+      assert %{id: id} = redirected_params(conn)
+      assert redirected_to(conn) == Routes.teacher_path(conn, :show, id)
 
       conn = get(conn, Routes.teacher_path(conn, :show, id))
-
-      assert %{
-               "id" => id,
-               "avatar_url" => "some avatar_url",
-               "birth_date" => "2010-04-17",
-               "class_type" => "some class_type",
-               "education_level" => "some education_level",
-               "name" => "some name"
-             } = json_response(conn, 200)["data"]
+      assert html_response(conn, 200) =~ "Name"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.teacher_path(conn, :create), teacher: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
+      assert html_response(conn, 200) =~ "New Teacher"
+    end
+  end
+
+  describe "edit teacher" do
+    setup [:create_teacher]
+
+    test "renders formfor editing chosen teacher", %{conn: conn, teacher: teacher} do
+      conn = get(conn, Routes.teacher_path(conn, :edit, teacher))
+      assert html_response(conn, 200) =~ "Edit Teacher"
     end
   end
 
   describe "update teacher" do
     setup [:create_teacher]
 
-    test "renders teacher when data is valid", %{conn: conn, teacher: %Teacher{id: id} = teacher} do
+    test "rendirects when data is valid", %{conn: conn, teacher: teacher} do
       conn = put(conn, Routes.teacher_path(conn, :update, teacher), teacher: @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+      assert redirected_to(conn) == Routes.teacher_path(conn, :show, teacher)
 
-      conn = get(conn, Routes.teacher_path(conn, :show, id))
+      conn = get(conn, Routes.teacher_path(conn, :show, teacher))
 
-      assert %{
-               "id" => id,
-               "avatar_url" => "some updated avatar_url",
-               "birth_date" => "2011-05-18",
-               "class_type" => "some updated class_type",
-               "education_level" => "some updated education_level",
-               "name" => "some updated name"
-             } = json_response(conn, 200)["data"]
+      assert html_response(conn, 200) =~ "some updated name"
     end
 
     test "renders errors when data is invalid", %{conn: conn, teacher: teacher} do
       conn = put(conn, Routes.teacher_path(conn, :update, teacher), teacher: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
+      assert html_response(conn, 200) =~ "Edit Teacher"
     end
   end
 
@@ -95,7 +86,7 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
 
     test "deletes chosen teacher", %{conn: conn, teacher: teacher} do
       conn = delete(conn, Routes.teacher_path(conn, :delete, teacher))
-      assert response(conn, 204)
+      assert redirected_to(conn) == Routes.teacher_path(conn, :index)
 
       assert_error_sent 404, fn ->
         get(conn, Routes.teacher_path(conn, :show, teacher))
