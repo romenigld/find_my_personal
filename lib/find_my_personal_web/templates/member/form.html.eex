@@ -10,11 +10,11 @@
   <%= error_tag f, :name %>
 
   <%= label f, :email %>
-  <%= text_input f, :email %>
+  <%= email_input f, :email %>
   <%= error_tag f, :email %>
 
   <%= label f, :birth_date %>
-  <%= date_select f, :birth_date %>
+  <%= date_input f, :birth_date %>
   <%= error_tag f, :birth_date %>
 
   <%= label f, :blood %>

@@ -3,8 +3,22 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
 
   alias FindMyPersonal.Members
 
-  @create_attrs %{birth_date: ~D[2010-04-17], blood: "some blood", email: "some email", height: "some height", name: "some name", weight: "some weight"}
-  @update_attrs %{birth_date: ~D[2011-05-18], blood: "some updated blood", email: "some updated email", height: "some updated height", name: "some updated name", weight: "some updated weight"}
+  @create_attrs %{
+    birth_date: ~D[2010-04-17],
+    blood: "some blood",
+    email: "some email",
+    height: "some height",
+    name: "some name",
+    weight: "some weight"
+  }
+  @update_attrs %{
+    birth_date: ~D[2011-05-18],
+    blood: "some updated blood",
+    email: "some updated email",
+    height: "some updated height",
+    name: "some updated name",
+    weight: "some updated weight"
+  }
   @invalid_attrs %{birth_date: nil, blood: nil, email: nil, height: nil, name: nil, weight: nil}
 
   def fixture(:member) do
@@ -75,6 +89,7 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
     test "deletes chosen member", %{conn: conn, member: member} do
       conn = delete(conn, Routes.member_path(conn, :delete, member))
       assert redirected_to(conn) == Routes.member_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.member_path(conn, :show, member))
       end
