@@ -1,32 +1,31 @@
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Education Level</th>
-    <th>Actions</th>
-  </thead>
-  <tbody>
-    <%= for teacher <- @teachers do %>
-      <tr>
-        <td>
-          <%= teacher.name %>
-        </td>
-        <td>
-          <%= teacher.education_level %>
-        </td>
-        <td>
-          <span>
-            <%= link "Show", to: Routes.teacher_path(@conn, :show, teacher) %>
-          </span>
-          <span>
-            <%= link "Edit", to: Routes.teacher_path(@conn, :edit, teacher) %>
-          </span>
-          <span>
-            <%= link "Delete", to: Routes.teacher_path(@conn, :delete, teacher), method: :delete,
-                   data: [confirm: "Are you sure?"] %>
-          </span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<span><%= link "New Teacher", to: Routes.teacher_path(@conn, :new) %></span>
+<ul class="collection with-header">
+  <li class="collection-header">
+    <h4>Instrutores</h4>
+  </li>
+  <%= for teacher <- @teachers do %>
+    <li class="collection-item avatar">
+      <img src="<%= teacher.avatar_url %>" alt="" class="circle">
+      <span class="title"><%= teacher.name %></span>
+      <p><%= teacher.education_level %><br>
+        Second Line
+      </p>
+      <div class="secondary-content">
+        <%= link to: Routes.teacher_path(@conn, :show, teacher) do %>
+          <i class="material-icons blue-text">send</i>
+        <% end %>
+        <%= link to: Routes.teacher_path(@conn, :edit, teacher) do %>
+          <i class="material-icons green-text">edit</i>
+        <% end %>
+        <%= link to: Routes.teacher_path(@conn, :delete, teacher), method: :delete, data: [confirm: "Are you sure?"] do %>
+          <i class="material-icons red-text">delete</i>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="fixed-action-btn">
+  <%= link to: Routes.teacher_path(@conn, :new), class: "btn-floating btn-large red" do %>
+    <i class="large material-icons">add</i>
+  <% end %>
+</div>
