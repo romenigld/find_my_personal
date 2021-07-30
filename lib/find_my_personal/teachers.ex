@@ -21,7 +21,6 @@ defmodule FindMyPersonal.Teachers do
     Repo.all(Teacher)
   end
 
-
   @doc """
   Returns the list of teachers.
 
