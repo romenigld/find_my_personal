@@ -2,4 +2,8 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.member_path(@conn, :create)) %>
 
-<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
+<%= link to: Routes.member_path(@conn, :index), class: "waves-effect waves-light btn-large blue" do %>
+  <i class="material-icons">reply</i>Back
+<% end %>
+
+<div class="row"></div>

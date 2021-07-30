@@ -1,38 +1,38 @@
-<h1>Show Member</h1>
+<div class="card">
+  <div class="card-image waves-effect waves-block waves-light">
+    <img class="activator" src="https://images.unsplash.com/photo-1566364164658-7d0bfffbb96f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80">
+  </div>
+  <div class="card-content">
+    <span class="card-title activator grey-text text-darken-4"><%= @member.name %><i class="material-icons right">more_vert</i></span>
+    <p><a href="#">Saiba Mais</a></p>
+  </div>
+  <div class="card-reveal">
+    <span class="card-title grey-text text-darken-4">
+      <%= @member.name %> - <%= FindMyPersonal.Utils.age(@member.birth_date) %> Anos
+      <i class="material-icons right">close</i>
+    </span>
+    <p><strong>Email:</strong> <%= @member.email %></p>
+    <p><strong>Data de Nascimento:</strong> <%= FindMyPersonal.Utils.convert_br(@member.birth_date) %></p>
+    <p>
+      <strong>Tipo Sanguineo:</strong>
+      <div class="chip red white-text">
+        <%= @member.blood %>
+      </div>
+    </p>
+    <p>
+      <strong>Altura:</strong>
+      <%= @member.height %>
+    </p>
+  </div>
+</div>
 
-<ul>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @member.name %>
-  </li>
+<%= link to: Routes.member_path(@conn, :index), class: "waves-effect waves-light btn-large blue" do %>
+  <i class="material-icons">reply</i>Back
+<% end %>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @member.email %>
-  </li>
+<%= link to: Routes.member_path(@conn, :edit, @member), class: "waves-effect waves-light btn-large blue right" do %>
+  <i class="material-icons">edit</i>Edit
+<% end %>
 
-  <li>
-    <strong>Birth date:</strong>
-    <%= @member.birth_date %>
-  </li>
-
-  <li>
-    <strong>Blood:</strong>
-    <%= @member.blood %>
-  </li>
-
-  <li>
-    <strong>Height:</strong>
-    <%= @member.height %>
-  </li>
-
-  <li>
-    <strong>Weight:</strong>
-    <%= @member.weight %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: Routes.member_path(@conn, :edit, @member) %></span>
-<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
+<div class="row"></div>

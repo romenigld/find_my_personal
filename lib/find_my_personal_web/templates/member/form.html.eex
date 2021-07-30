@@ -5,31 +5,57 @@
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
-
-  <%= label f, :email %>
-  <%= email_input f, :email %>
-  <%= error_tag f, :email %>
-
-  <%= label f, :birth_date %>
-  <%= date_input f, :birth_date %>
-  <%= error_tag f, :birth_date %>
-
-  <%= label f, :blood %>
-  <%= text_input f, :blood %>
-  <%= error_tag f, :blood %>
-
-  <%= label f, :height %>
-  <%= text_input f, :height %>
-  <%= error_tag f, :height %>
-
-  <%= label f, :weight %>
-  <%= text_input f, :weight %>
-  <%= error_tag f, :weight %>
-
-  <div>
-    <%= submit "Save" %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= text_input f, :name, class: "validate" %>
+      <%= label f, :name %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :name %></span>
+    </div>
   </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= email_input f, :email, class: "validate" %>
+      <%= label f, :email %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :email %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= date_input f, :birth_date, class: "validate" %>
+      <%= label f, :birth_date %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :birth_date %></span>
+    </div>
+  </div>
+
+ <div class="row">
+    <div class="input-field col s12">
+      <%= select f, :blood,
+          ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+          prompt: "Tipo Sanguineo" %>
+      <%= label f, :blood %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :blood %></span>
+    </div>
+  </div>
+
+ <div class="row">
+    <div class="input-field col s12">
+      <%= number_input f, :height, class: "validate", placeholder: "Altura em (cm)" %>
+      <%= label f, :height %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :height %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= number_input f, :weight, class: "validate", placeholder: "Peso em (kg)" %>
+      <%= label f, :weight %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :weight %></span>
+    </div>
+  </div>
+
+  <%= submit class: "waves-effect waves-light btn-large blue right" do %>
+    <i class="material-icons right">send</i>Save
+  <% end %>
 <% end %>
