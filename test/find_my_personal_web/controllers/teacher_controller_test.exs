@@ -33,7 +33,7 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
   describe "index" do
     test "lists all teachers", %{conn: conn} do
       conn = get(conn, Routes.teacher_path(conn, :index))
-      assert html_response(conn, 200) =~ "Name"
+      assert html_response(conn, 200) =~ "Instrutores"
     end
   end
 
@@ -45,7 +45,7 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
       assert redirected_to(conn) == Routes.teacher_path(conn, :show, id)
 
       conn = get(conn, Routes.teacher_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Name"
+      assert html_response(conn, 200) =~ "Saiba Mais"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

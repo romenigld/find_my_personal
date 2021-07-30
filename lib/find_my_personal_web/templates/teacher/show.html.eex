@@ -1,26 +1,30 @@
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Education Level</th>
-    <th>Actions</th>
-  </thead>
-  <tbody>
-      <tr>
-        <td>
-          <%= @teacher.name %>
-        </td>
-        <td>
-          <%= @teacher.education_level %>
-        </td>
-        <td>
-          Actions
-        </td>
-      </tr>
-  </tbody>
-</table>
-<span>
-  <%= link "Edit", to: Routes.teacher_path(@conn, :edit, @teacher) %>
-</span>
-<span>
-  <%= link "Back", to: Routes.teacher_path(@conn, :index) %>
-</span>
+<div class="card">
+  <div class="card-image waves-effect waves-block waves-light">
+    <img class="activator" src="<%= @teacher.avatar_url %>">
+  </div>
+  <div class="card-content">
+    <span class="card-title activator grey-text text-darken-4"><%= @teacher.name %><i class="material-icons right">more_vert</i></span>
+    <p><a href="#">Saiba Mais</a></p>
+  </div>
+  <div class="card-reveal">
+    <span class="card-title grey-text text-darken-4"><%= @teacher.name %><i class="material-icons right">close</i></span>
+    <p><strong>Nivel de Educação:</strong> <%= @teacher.education_level %></p>
+    <p><strong>Data de Nascimento:</strong> <%= FindMyPersonal.Utils.convert_br(@teacher.birth_date) %></p>
+    <p><strong>Idade:</strong> <%= FindMyPersonal.Utils.age(@teacher.birth_date) %></p>
+    <p><strong>Aulas:</strong>
+      <%= for tipo <- String.split(@teacher.class_type, ",") do %>
+        <div class="chip deep-orange white-text">
+          <%= tipo %>
+        </div>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<%= link to: Routes.teacher_path(@conn, :edit, @teacher), class: "waves-effect waves-light btn-large blue right" do %>
+  <i class="material-icons">edit</i>Edit
+<% end %>
+
+<%= link to: Routes.teacher_path(@conn, :index), class: "waves-effect waves-light btn-large blue" do %>
+  <i class="material-icons">reply</i>Back
+<% end %>
