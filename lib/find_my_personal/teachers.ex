@@ -3,7 +3,7 @@ defmodule FindMyPersonal.Teachers do
   The Teachers context.
   """
 
-  import Ecto.Query, warn: false
+  import Ecto.Query, only: [from: 2]
   alias FindMyPersonal.Repo
 
   alias FindMyPersonal.Teachers.Teacher
@@ -19,6 +19,20 @@ defmodule FindMyPersonal.Teachers do
   """
   def list_teachers do
     Repo.all(Teacher)
+  end
+
+  @doc """
+  Returns the list of teachers.
+
+  ## Examples
+
+      iex> list_teachers("test")
+      [%Teacher{}, ...]
+
+  """
+  def list_teachers(filter) do
+    filter = "%#{filter}%"
+    Repo.all(from t in Teacher, where: ilike(t.name, ^filter))
   end
 
   @doc """

@@ -1,6 +1,13 @@
 <ul class="collection with-header">
   <li class="collection-header">
     <h4>Instrutores</h4>
+    <%= form_for @conn, Routes.teacher_path(@conn, :search), [class: "nav-wrapper", method: :get], fn f-> %>
+      <div class="input-field">
+        <%= search_input f, :term, name: "filter", id: "search", placeholder: "Digite o nome do Instrutor" %>
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+        <i class="material-icons">close</i>
+      </div>
+    <% end %>
   </li>
   <%= for teacher <- @teachers do %>
     <li class="collection-item avatar">

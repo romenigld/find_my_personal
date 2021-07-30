@@ -42,6 +42,11 @@ defmodule FindMyPersonal.TeachersTest do
       assert Teachers.list_teachers() == [teacher]
     end
 
+    test "list_teachers/1 using filters search" do
+      teacher = teacher_fixture()
+      assert Teachers.list_teachers("some") == [teacher]
+    end
+
     test "get_teacher!/1 returns the teacher with given id" do
       teacher = teacher_fixture()
       assert Teachers.get_teacher!(teacher.id) == teacher

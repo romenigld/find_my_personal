@@ -9,6 +9,11 @@ defmodule FindMyPersonalWeb.TeacherController do
     render(conn, "index.html", teachers: teachers)
   end
 
+  def search(conn, %{"filter" => filter}) do
+    teachers = Teachers.list_teachers(filter)
+    render(conn, "index.html", teachers: teachers)
+  end
+
   def show(conn, %{"id" => id}) do
     teacher = Teachers.get_teacher!(id)
     render(conn, "show.html", teacher: teacher)
