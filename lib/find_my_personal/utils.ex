@@ -1,5 +1,4 @@
 defmodule FindMyPersonal.Utils do
-
   def convert_br(date) do
     "#{date.day}/#{date.month}/#{date.year}"
   end
@@ -9,10 +8,9 @@ defmodule FindMyPersonal.Utils do
     age = today.year - date.year
     month = today.month - date.month
 
-    case month  < 0 || (month == 0 && today.day <= date.today) do
+    case month < 0 || (month == 0 && today.day <= date.today) do
       true -> age - 1
       false -> age
     end
-
   end
 end
