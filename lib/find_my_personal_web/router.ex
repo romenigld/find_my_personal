@@ -20,6 +20,7 @@ defmodule FindMyPersonalWeb.Router do
     pipe_through :browser
 
     resources "/teachers", TeacherController
+    resources "/members", MemberController
 
     get "/", PageController, :index
   end
@@ -27,7 +28,9 @@ defmodule FindMyPersonalWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", FindMyPersonalWeb.Api, as: :api do
     pipe_through :api
+
     resources "/teachers", TeacherController, except: [:new, :edit]
+    resources "/members", MemberController
   end
 
   # Enables LiveDashboard only for development

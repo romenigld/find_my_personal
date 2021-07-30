@@ -1,0 +1,15 @@
+<header>
+  <nav>
+    <div class="nav-wrapper grey darken-3">
+      <a href="#!" class="brand-logo">Meu Personal</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <%= render FindMyPersonalWeb.SharedView, "_header_menu.html", assigns %>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <%= render FindMyPersonalWeb.SharedView, "_header_menu.html", assigns %>
+  </ul>
+</header>
