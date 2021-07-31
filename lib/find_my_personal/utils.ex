@@ -8,7 +8,7 @@ defmodule FindMyPersonal.Utils do
     age = today.year - date.year
     month = today.month - date.month
 
-    case month < 0 || (month == 0 && today.day <= date.today) do
+    case month < 0 || (month == 0 && today.day <= date.day) do
       true -> age - 1
       false -> age
     end

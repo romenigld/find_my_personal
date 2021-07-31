@@ -1,7 +1,7 @@
 defmodule FindMyPersonalWeb.TeacherControllerTest do
   use FindMyPersonalWeb.ConnCase
 
-  alias FindMyPersonal.Teachers
+  alias FindMyPersonal.{Teachers, Teachers.Teacher}
 
   @create_attrs %{
     avatar_url: "some avatar_url",
@@ -43,6 +43,26 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
   end
 
   describe "create teacher" do
+    test "renders form", %{conn: conn} do
+      conn = get(conn, Routes.teacher_path(conn, :new))
+      assert html_response(conn, 200) =~ "New Teacher"
+    end
+
+    test "create_teacher/1 with valid data creates a teacher", %{conn: _conn} do
+      assert {:ok, %Teacher{} = teacher} = Teachers.create_teacher(@create_attrs)
+      assert teacher.avatar_url == "some avatar_url"
+      assert teacher.birth_date == ~D[2010-04-17]
+      assert teacher.class_type == "some class_type"
+      assert teacher.education_level == "some education_level"
+      assert teacher.name == "some name"
+    end
+
+    test "create_teacher/1 with invalid data returns error changeset", %{conn: _conn} do
+      assert {:error, %Ecto.Changeset{} = changeset} = Teachers.create_teacher(@invalid_attrs)
+      # assert "can't be blank" = errors_on(changeset).name
+      # assert %{name: ["can't be blank"]} = errors_on(changeset)
+    end
+
     test "renders to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.teacher_path(conn, :create), teacher: @create_attrs)
 
@@ -62,7 +82,7 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
   describe "edit teacher" do
     setup [:create_teacher]
 
-    test "renders formfor editing chosen teacher", %{conn: conn, teacher: teacher} do
+    test "renders form_for editing chosen teacher", %{conn: conn, teacher: teacher} do
       conn = get(conn, Routes.teacher_path(conn, :edit, teacher))
       assert html_response(conn, 200) =~ "Edit Teacher"
     end
@@ -71,7 +91,7 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
   describe "update teacher" do
     setup [:create_teacher]
 
-    test "rendirects when data is valid", %{conn: conn, teacher: teacher} do
+    test "redirects when data is valid", %{conn: conn, teacher: teacher} do
       conn = put(conn, Routes.teacher_path(conn, :update, teacher), teacher: @update_attrs)
       assert redirected_to(conn) == Routes.teacher_path(conn, :show, teacher)
 
