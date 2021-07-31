@@ -21,6 +21,21 @@ defmodule FindMyPersonal.Members do
     Repo.all(Member)
   end
 
+
+  @doc """
+  Returns the list of members.
+
+  ## Examples
+
+      iex> list_members()
+      [%Member{}, ...]
+
+  """
+  def list_members(filter) do
+    filter = "%#{filter}%"
+    Repo.all(from m in Member, where: ilike(m.name, ^filter))
+  end
+
   @doc """
   Gets a single member.
 

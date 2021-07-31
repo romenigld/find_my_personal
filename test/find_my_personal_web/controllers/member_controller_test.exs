@@ -31,6 +31,11 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
       conn = get(conn, Routes.member_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Members"
     end
+
+    test "lists all members using filter", %{conn: conn} do
+      conn = get(conn, Routes.member_path(conn, :search, %{"filter" => ""}))
+      assert html_response(conn, 200) =~ "Listing Members"
+    end
   end
 
   describe "new member" do

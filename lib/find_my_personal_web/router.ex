@@ -22,6 +22,7 @@ defmodule FindMyPersonalWeb.Router do
     get "/teachers/search", TeacherController, :search
     resources "/teachers", TeacherController
 
+    get "/members/search", MemberController, :search
     resources "/members", MemberController
 
     get "/", PageController, :index

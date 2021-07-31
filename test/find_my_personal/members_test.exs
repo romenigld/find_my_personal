@@ -38,6 +38,11 @@ defmodule FindMyPersonal.MembersTest do
       assert Members.list_members() == [member]
     end
 
+    test "list_members/1 using filters" do
+      member = member_fixture()
+      assert Members.list_members("name") == [member]
+    end
+
     test "get_member!/1 returns the member with given id" do
       member = member_fixture()
       assert Members.get_member!(member.id) == member
