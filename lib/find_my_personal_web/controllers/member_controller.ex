@@ -9,6 +9,11 @@ defmodule FindMyPersonalWeb.MemberController do
     render(conn, "index.html", members: members)
   end
 
+  def search(conn, %{"filter" => filter}) do
+    members = Members.list_members(filter)
+    render(conn, "index.html", members: members)
+  end
+
   def new(conn, _params) do
     changeset = Members.change_member(%Member{})
     render(conn, "new.html", changeset: changeset)

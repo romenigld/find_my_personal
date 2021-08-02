@@ -1,6 +1,15 @@
 <ul class="collection with-header">
   <li class="collection-header">
     <h4>Listing Members</h4>
+    <%= form_for @conn, Routes.member_path(@conn, :search), [class: "nav-wrapper", method: :get], fn f -> %>
+      <div class="input-field">
+        <%= search_input f, :term, name: "filter", id: "search" %>
+        <label for="search" class= "label-icon">
+          <i class="material-icons">search</i>
+        </label>
+        <i class="material-icons">close</i>
+      </div>
+    <% end %>
   </li>
   <%= for member <- @members do %>
     <img src="https://images.unsplash.com/photo-1566364164658-7d0bfffbb96f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=40&q=50" alt="" class="circle">
