@@ -35,6 +35,10 @@ defmodule FindMyPersonal.Teachers do
     Repo.all(from t in Teacher, where: ilike(t.name, ^filter))
   end
 
+  def list_all do
+    Repo.all(from t in Teacher, select: {t.name, t.id})
+  end
+
   @doc """
   Gets a single teacher.
 

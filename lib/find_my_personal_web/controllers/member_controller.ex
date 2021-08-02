@@ -3,6 +3,7 @@ defmodule FindMyPersonalWeb.MemberController do
 
   alias FindMyPersonal.Members
   alias FindMyPersonal.Members.Member
+  alias FindMyPersonal.Teachers
 
   def index(conn, _params) do
     members = Members.list_members()
@@ -16,7 +17,9 @@ defmodule FindMyPersonalWeb.MemberController do
 
   def new(conn, _params) do
     changeset = Members.change_member(%Member{})
-    render(conn, "new.html", changeset: changeset)
+    teachers = Teachers.list_all()
+
+    render(conn, "new.html", changeset: changeset, teachers: teachers)
   end
 
   def create(conn, %{"member" => member_params}) do
@@ -39,7 +42,9 @@ defmodule FindMyPersonalWeb.MemberController do
   def edit(conn, %{"id" => id}) do
     member = Members.get_member!(id)
     changeset = Members.change_member(member)
-    render(conn, "edit.html", member: member, changeset: changeset)
+    teachers = Teachers.list_all()
+
+    render(conn, "edit.html", member: member, changeset: changeset, teachers: teachers)
   end
 
   def update(conn, %{"id" => id, "member" => member_params}) do
@@ -52,7 +57,8 @@ defmodule FindMyPersonalWeb.MemberController do
         |> redirect(to: Routes.member_path(conn, :show, member))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", member: member, changeset: changeset)
+        teachers = Teachers.list_all()
+        render(conn, "edit.html", member: member, changeset: changeset, teachers: teachers)
     end
   end
 

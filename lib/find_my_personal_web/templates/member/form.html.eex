@@ -63,6 +63,16 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="input-field col s12">
+      <%= select f, :teacher_id,
+          @teachers,
+          prompt: "Selecione um Instrutor" %>
+      <%= label f, :teacher_id %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :blood %></span>
+    </div>
+  </div>
+
   <%= submit class: "waves-effect waves-light btn-large blue right" do %>
     <i class="material-icons right">send</i>Save
   <% end %>
