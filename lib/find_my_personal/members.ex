@@ -21,7 +21,6 @@ defmodule FindMyPersonal.Members do
     Repo.all(Member)
   end
 
-
   @doc """
   Returns the list of members.
 
