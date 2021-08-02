@@ -65,9 +65,7 @@
 
   <div class="row">
     <div class="input-field col s12">
-      <%= select f, :teacher_id,
-          @teachers,
-          prompt: "Selecione um Instrutor" %>
+      <%= select f, :teacher_id, @teachers %>
       <%= label f, :teacher_id %>
       <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :blood %></span>
     </div>

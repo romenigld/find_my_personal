@@ -30,7 +30,8 @@ defmodule FindMyPersonalWeb.MemberController do
         |> redirect(to: Routes.member_path(conn, :show, member))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        teachers = Teachers.list_all()
+        render(conn, "new.html", changeset: changeset, teachers: teachers)
     end
   end
 

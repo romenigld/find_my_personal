@@ -14,7 +14,10 @@
       <img src="<%= teacher.avatar_url %>" alt="" class="circle">
       <span class="title"><%= teacher.name %></span>
       <p><%= teacher.education_level %><br>
-        Second Line
+        <span class="badge blue white-text">
+          <%= FindMyPersonal.Members.count_members_teacher(teacher.id) %>
+          alunos
+        </span>
       </p>
       <div class="secondary-content">
         <%= link to: Routes.teacher_path(@conn, :show, teacher) do %>
