@@ -13,6 +13,7 @@ defmodule FindMyPersonalWeb.Api.MemberView do
   def render("member.json", %{member: member}) do
     %{
       id: member.id,
+      avatar_url: member.avatar_url,
       name: member.name,
       email: member.email,
       birth_date: member.birth_date,
