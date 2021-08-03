@@ -1,12 +1,33 @@
 defmodule FindMyPersonal.MembersTest do
   use FindMyPersonal.DataCase
+  use Bamboo.Test
 
-  alias FindMyPersonal.Members
+  alias FindMyPersonal.{Members, Members.Mail, Members.Member}
+
   import FindMyPersonal.MemberFixture
 
-  describe "members" do
-    alias FindMyPersonal.Members.Member
+  describe "emails tests" do
+    test "welcome email" do
+      member = member_fixture()
 
+      {:ok, email} = Mail.created({:ok, member})
+
+      assert email.to == [nil: "romenigld@gmail.com"]
+      assert email.from == {nil, "romenigld@gmail.com"}
+      assert email.html_body =~ "<strong>Obrigado por confiar no nosso time!!!</strong>"
+      assert email.text_body =~ "Obrigado!!"
+    end
+
+    test "after registering, the member gets a welcome email" do
+      member = member_fixture()
+
+      {:ok, expected_email} = Mail.created({:ok, member})
+
+      assert_delivered_email(expected_email)
+    end
+  end
+
+  describe "members" do
     test "list_members/0 returns all members" do
       member = member_fixture()
       assert Members.list_members() == [member]

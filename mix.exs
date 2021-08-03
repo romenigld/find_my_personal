@@ -45,7 +45,7 @@ defmodule FindMyPersonal.MixProject do
   def application do
     [
       mod: {FindMyPersonal.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :bamboo_smtp]
     ]
   end
 
@@ -72,7 +72,9 @@ defmodule FindMyPersonal.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.11.1", only: :dev},
-      {:excoveralls, "~> 0.14.1", only: :test}
+      {:excoveralls, "~> 0.14.1", only: :test},
+      {:bamboo, "~> 2.2.0"},
+      {:bamboo_smtp, "~> 4.1.0"}
     ]
   end
 

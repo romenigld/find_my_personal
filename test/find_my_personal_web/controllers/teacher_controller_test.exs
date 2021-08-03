@@ -58,7 +58,7 @@ defmodule FindMyPersonalWeb.TeacherControllerTest do
     end
 
     test "create_teacher/1 with invalid data returns error changeset", %{conn: _conn} do
-      assert {:error, %Ecto.Changeset{} = changeset} = Teachers.create_teacher(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{} = _changeset} = Teachers.create_teacher(@invalid_attrs)
       # assert "can't be blank" = errors_on(changeset).name
       # assert %{name: ["can't be blank"]} = errors_on(changeset)
     end
