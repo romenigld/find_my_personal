@@ -18,5 +18,8 @@ config :find_my_personal, FindMyPersonalWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :find_my_personal, FindMyPersonal.Mail.Mailer,
+  adapter: Bamboo.TestAdapter
+
 # Print only warnings and errors during test
 config :logger, level: :warn
