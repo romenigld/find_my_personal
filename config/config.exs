@@ -31,7 +31,7 @@ config :find_my_personal, FindMyPersonal.Mail.Mailer,
   server: "SERVER_HOST_MAIL",
   hostname: "SERVER_HOST_MAIL",
   port: "PORT_MAIL",
-  username: "USER_NAME_MAIL"
+  username: "USER_NAME_MAIL",
   password: "PASSWORD_MAIL",
   tls: :if_available,
   allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
