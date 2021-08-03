@@ -23,7 +23,7 @@ defmodule FindMyPersonal.MembersTest do
 
       {:ok, expected_email} = Mail.created({:ok, member})
 
-      assert_delivered_email expected_email
+      assert_delivered_email(expected_email)
     end
   end
 
