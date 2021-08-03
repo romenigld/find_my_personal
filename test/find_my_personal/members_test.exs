@@ -2,36 +2,10 @@ defmodule FindMyPersonal.MembersTest do
   use FindMyPersonal.DataCase
 
   alias FindMyPersonal.Members
+  import FindMyPersonal.MemberFixture
 
   describe "members" do
     alias FindMyPersonal.Members.Member
-
-    @valid_attrs %{
-      birth_date: ~D[2010-04-17],
-      blood: "some blood",
-      email: "some email",
-      height: "some height",
-      name: "some name",
-      weight: "some weight"
-    }
-    @update_attrs %{
-      birth_date: ~D[2011-05-18],
-      blood: "some updated blood",
-      email: "some updated email",
-      height: "some updated height",
-      name: "some updated name",
-      weight: "some updated weight"
-    }
-    @invalid_attrs %{birth_date: nil, blood: nil, email: nil, height: nil, name: nil, weight: nil}
-
-    def member_fixture(attrs \\ %{}) do
-      {:ok, member} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Members.create_member()
-
-      member
-    end
 
     test "list_members/0 returns all members" do
       member = member_fixture()
@@ -40,7 +14,7 @@ defmodule FindMyPersonal.MembersTest do
 
     test "list_members/1 using filters" do
       member = member_fixture()
-      assert Members.list_members("name") == [member]
+      assert Members.list_members("romenig") == [member]
     end
 
     test "get_member!/1 returns the member with given id" do
@@ -49,33 +23,33 @@ defmodule FindMyPersonal.MembersTest do
     end
 
     test "create_member/1 with valid data creates a member" do
-      assert {:ok, %Member{} = member} = Members.create_member(@valid_attrs)
-      assert member.birth_date == ~D[2010-04-17]
-      assert member.blood == "some blood"
-      assert member.email == "some email"
-      assert member.height == "some height"
-      assert member.name == "some name"
-      assert member.weight == "some weight"
+      assert {:ok, %Member{} = member} = Members.create_member(valid_attrs())
+      assert member.birth_date == ~D[1984-04-24]
+      assert member.blood == "O"
+      assert member.email == "romenigld@gmail.com"
+      assert member.height == "1.77"
+      assert member.name == "romenigld"
+      assert member.weight == "76"
     end
 
     test "create_member/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Members.create_member(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Members.create_member(invalid_attrs())
     end
 
     test "update_member/2 with valid data updates the member" do
       member = member_fixture()
-      assert {:ok, %Member{} = member} = Members.update_member(member, @update_attrs)
-      assert member.birth_date == ~D[2011-05-18]
-      assert member.blood == "some updated blood"
-      assert member.email == "some updated email"
-      assert member.height == "some updated height"
-      assert member.name == "some updated name"
-      assert member.weight == "some updated weight"
+      assert {:ok, %Member{} = member} = Members.update_member(member, update_attrs())
+      assert member.birth_date == ~D[1984-04-24]
+      assert member.blood == "O"
+      assert member.email == "update@test.com"
+      assert member.height == "1.77"
+      assert member.name == "update romenigld"
+      assert member.weight == "75"
     end
 
     test "update_member/2 with invalid data returns error changeset" do
       member = member_fixture()
-      assert {:error, %Ecto.Changeset{}} = Members.update_member(member, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Members.update_member(member, invalid_attrs())
       assert member == Members.get_member!(member.id)
     end
 

@@ -2,27 +2,10 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
   use FindMyPersonalWeb.ConnCase
 
   alias FindMyPersonal.Members
-
-  @create_attrs %{
-    birth_date: ~D[2010-04-17],
-    blood: "some blood",
-    email: "some email",
-    height: "some height",
-    name: "some name",
-    weight: "some weight"
-  }
-  @update_attrs %{
-    birth_date: ~D[2011-05-18],
-    blood: "some updated blood",
-    email: "some updated email",
-    height: "some updated height",
-    name: "some updated name",
-    weight: "some updated weight"
-  }
-  @invalid_attrs %{birth_date: nil, blood: nil, email: nil, height: nil, name: nil, weight: nil}
+  import FindMyPersonal.MemberFixture
 
   def fixture(:member) do
-    {:ok, member} = Members.create_member(@create_attrs)
+    {:ok, member} = Members.create_member(valid_attrs())
     member
   end
 
@@ -47,7 +30,7 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
 
   describe "create member" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.member_path(conn, :create), member: @create_attrs)
+      conn = post(conn, Routes.member_path(conn, :create), member: valid_attrs())
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.member_path(conn, :show, id)
@@ -57,7 +40,7 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.member_path(conn, :create), member: @invalid_attrs)
+      conn = post(conn, Routes.member_path(conn, :create), member: invalid_attrs())
       assert html_response(conn, 200) =~ "New Member"
     end
   end
@@ -75,15 +58,15 @@ defmodule FindMyPersonalWeb.MemberControllerTest do
     setup [:create_member]
 
     test "redirects when data is valid", %{conn: conn, member: member} do
-      conn = put(conn, Routes.member_path(conn, :update, member), member: @update_attrs)
+      conn = put(conn, Routes.member_path(conn, :update, member), member: update_attrs())
       assert redirected_to(conn) == Routes.member_path(conn, :show, member)
 
       conn = get(conn, Routes.member_path(conn, :show, member))
-      assert html_response(conn, 200) =~ "some updated blood"
+      assert html_response(conn, 200) =~ "update romenigld"
     end
 
     test "renders errors when data is invalid", %{conn: conn, member: member} do
-      conn = put(conn, Routes.member_path(conn, :update, member), member: @invalid_attrs)
+      conn = put(conn, Routes.member_path(conn, :update, member), member: invalid_attrs())
       assert html_response(conn, 200) =~ "Edit Member"
     end
   end

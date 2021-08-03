@@ -39,6 +39,7 @@ defmodule FindMyPersonal.Members do
   def count_members_teacher(teacher_id) do
     Repo.one(from m in Member, where: m.teacher_id == ^teacher_id, select: count("*"))
   end
+
   @doc """
   Gets a single member.
 
@@ -68,7 +69,7 @@ defmodule FindMyPersonal.Members do
 
   """
   def create_member(attrs \\ %{}) do
-    %{"teacher_id" => teacher_id } = attrs
+    %{"teacher_id" => teacher_id} = attrs
 
     teacher_id
     |> Teachers.get_teacher!()
