@@ -34,7 +34,7 @@ config :find_my_personal, FindMyPersonal.Mail.Mailer,
   username: "82dd068f196ac2",
   password: "db85682c68c69b",
   tls: :if_available,
-  allowed_tls_versions: [:"tlsv1", :"tlsv1.1", :"tlsv1.2"],
+  allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
   tls_log_level: :error,
   tls_verify: :verify_peer,
   tls_cacertfile: "/somewhere/on/disk",
@@ -44,7 +44,7 @@ config :find_my_personal, FindMyPersonal.Mail.Mailer,
   ssl: false,
   retries: 1,
   no_mx_lookups: false,
-  auth: :if_available
+  auth: :cram_md5
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
