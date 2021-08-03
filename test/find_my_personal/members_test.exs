@@ -17,6 +17,11 @@ defmodule FindMyPersonal.MembersTest do
       assert Members.list_members("romenig") == [member]
     end
 
+    test "count_members_teacher/1 using filters" do
+      member = member_fixture()
+      assert Members.count_members_teacher(member.teacher_id) == 1
+    end
+
     test "get_member!/1 returns the member with given id" do
       member = member_fixture()
       assert Members.get_member!(member.id) == member

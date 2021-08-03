@@ -49,7 +49,7 @@ defmodule FindMyPersonal.MemberFixture do
     member
   end
 
-  def get_teacher() do
+  def get_teacher do
     {:ok, teacher} =
       %{
         avatar_url: "some avatar_url",
