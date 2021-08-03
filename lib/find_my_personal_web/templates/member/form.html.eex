@@ -7,6 +7,14 @@
 
   <div class="row">
     <div class="input-field col s12">
+      <%= url_input f, :avatar_url, class: "validate" %>
+      <%= label f, :avatar_url %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :avatar_url %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
       <%= text_input f, :name, class: "validate" %>
       <%= label f, :name %>
       <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :name %></span>
@@ -52,6 +60,14 @@
       <%= number_input f, :weight, class: "validate", placeholder: "Peso em (kg)" %>
       <%= label f, :weight %>
       <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :weight %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <%= select f, :teacher_id, @teachers %>
+      <%= label f, :teacher_id %>
+      <span class="helper-text" data-error="wrong" data-success="right"><%= error_tag f, :blood %></span>
     </div>
   </div>
 

@@ -18,6 +18,14 @@
         </div>
       <% end %>
     </p>
+
+    <ul class="collection with-header">
+      <li class="collection-header">
+        <h4>Lista de Alunos</h4>
+      <%= for member <- FindMyPersonal.Repo.preload(@teacher, :members).members do %>
+        <li class="collection-item"><%= member.name %></li>
+      <% end %>
+    </ul>
   </div>
 </div>
 

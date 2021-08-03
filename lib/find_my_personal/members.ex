@@ -3,10 +3,11 @@ defmodule FindMyPersonal.Members do
   The Members context.
   """
 
-  import Ecto.Query, warn: false
+  import Ecto.Query, only: [from: 2]
   alias FindMyPersonal.Repo
 
   alias FindMyPersonal.Members.Member
+  alias FindMyPersonal.Teachers
 
   @doc """
   Returns the list of members.
@@ -33,6 +34,10 @@ defmodule FindMyPersonal.Members do
   def list_members(filter) do
     filter = "%#{filter}%"
     Repo.all(from m in Member, where: ilike(m.name, ^filter))
+  end
+
+  def count_members_teacher(teacher_id) do
+    Repo.one(from m in Member, where: m.teacher_id == ^teacher_id, select: count("*"))
   end
 
   @doc """
@@ -64,7 +69,11 @@ defmodule FindMyPersonal.Members do
 
   """
   def create_member(attrs \\ %{}) do
-    %Member{}
+    %{"teacher_id" => teacher_id} = attrs
+
+    teacher_id
+    |> Teachers.get_teacher!()
+    |> Ecto.build_assoc(:members)
     |> Member.changeset(attrs)
     |> Repo.insert()
   end

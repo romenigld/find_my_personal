@@ -9,6 +9,9 @@ defmodule FindMyPersonal.Members.Member do
     field :height, :string
     field :name, :string
     field :weight, :string
+    field :avatar_url, :string
+
+    belongs_to :teacher, FindMyPersonal.Teachers.Teacher
 
     timestamps()
   end
@@ -16,7 +19,7 @@ defmodule FindMyPersonal.Members.Member do
   @doc false
   def changeset(member, attrs) do
     member
-    |> cast(attrs, [:name, :email, :birth_date, :blood, :height, :weight])
-    |> validate_required([:name, :email, :birth_date, :blood, :height, :weight])
+    |> cast(attrs, [:name, :email, :birth_date, :blood, :height, :weight, :avatar_url])
+    |> validate_required([:name, :email, :birth_date, :blood, :height, :weight, :avatar_url])
   end
 end
