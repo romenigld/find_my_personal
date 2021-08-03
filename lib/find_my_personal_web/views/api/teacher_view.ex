@@ -14,7 +14,7 @@ defmodule FindMyPersonalWeb.Api.TeacherView do
   def render("teacher.json", %{teacher: teacher}) do
     teacher = teacher |> Repo.preload(:members)
     members = teacher.members
-    total_members = members |> Enum.count
+    total_members = members |> Enum.count()
 
     %{
       id: teacher.id,
